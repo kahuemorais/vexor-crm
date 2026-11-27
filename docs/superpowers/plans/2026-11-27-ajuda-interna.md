@@ -46,3 +46,12 @@ filtrado pela interface e busca por todos os termos, sem exigir acentos.
 A revisão passou nos 33 testes da Ajuda, na checagem TypeScript e em
 `git diff --check`. O navegador autenticado ainda depende de uma instalação
 com dados e credenciais de teste.
+
+### Validação autenticada concluída
+
+O Chromium passou com login pelo app em uma instalação local com Supabase Auth
+e o baseline do produto. O gerente abriu a Ajuda pelo menu e seguiu o resultado
+da busca até Execuções. O perfil somente leitura recebeu estado vazio para esse
+termo e encontrou Agenda. Desktop e celular passaram sem transbordamento
+horizontal. Roteiro e capturas em `evidence/2026-11-27-ajuda-interna/`.
+O ESLint passou nos arquivos de código alterados.
