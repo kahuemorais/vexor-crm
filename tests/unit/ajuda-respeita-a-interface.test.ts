@@ -4,10 +4,16 @@ import { blocosVisiveis } from "@/lib/ajuda/hub";
 import type { Role } from "@/lib/auth/types";
 import { combinarInterfaces, destinosDaInterface } from "@/lib/navigation/interface";
 
-const basicos = ["/app/inbox", "/app/kanban", "/app/contacts"];
+const basicos = [
+  "/app/inbox", "/app/kanban", "/app/contacts", "/app/radar",
+  "/app/agenda", "/app/templates", "/app/metrics",
+];
 const equipe = "/app/team";
 const casos = "/app/ai/cases";
-const montagem = ["/app/ai/agents", "/app/ai/knowledge/sources"];
+const montagem = [
+  "/app/ai/agents", "/app/ai/knowledge/sources", "/app/ai/followups",
+  "/app/ai/routers", "/app/ai/usage", "/app/webhooks",
+];
 const etapas = "/app/settings/tenant/pipelines";
 const conexoes = "/app/connections";
 const instalacao = "/app/settings/atualizacao";
@@ -27,7 +33,7 @@ describe("Ajuda respeita a mesma interface do menu", () => {
     ["viewer", [...basicos, equipe]],
     ["agent", [...basicos, equipe, casos]],
     ["manager", [...basicos, equipe, casos, ...montagem, etapas]],
-    ["admin", [...basicos, equipe, casos, ...montagem, etapas, conexoes]],
+    ["admin", [...basicos, equipe, casos, ...montagem, etapas, conexoes, "/app/integrations/nuvemshop"]],
   ] as const)("%s recebe só os atalhos permitidos pelo catálogo", (role, esperados) => {
     expect(hrefs(blocos(role))).toEqual([...esperados].sort());
   });
@@ -54,6 +60,15 @@ describe("Ajuda respeita a mesma interface do menu", () => {
     expect(blocos("viewer").map((bloco) => bloco.titulo)).toEqual([
       "Começar a usar", "Sua empresa",
     ]);
+  });
+
+  it("a pergunta sobre roteiros acompanha o módulo de fluxos de atendimento", () => {
+    const fluxos = "/app/ai/atendimento";
+    expect(hrefs(blocos("manager"))).not.toContain(fluxos);
+    const destinosComModulo = destinosDaInterface(
+      undefined, false, "manager", ["fluxos_atendimento"], [],
+    );
+    expect(hrefs(blocosVisiveis(false, destinosComModulo))).toContain(fluxos);
   });
 
   it("admin de tenant não ganha a porta da instalação", () => {

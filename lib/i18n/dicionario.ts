@@ -20312,6 +20312,66 @@ export const DICIONARIO: Traducoes = {
   "O caminho para cada tarefa, e onde ir quando algo não sai como esperado.": {
     es: "El camino para cada tarea, y adónde ir cuando algo no sale como se espera.",
   },
+  "Como vejo quais conversas ficaram sem resposta?": {
+    es: "¿Cómo veo qué conversaciones quedaron sin respuesta?",
+  },
+  "Abra o Radar para ver as conversas abertas que esfriaram e decidir quais retomar.": {
+    es: "Abre Radar para ver las conversaciones abiertas que se enfriaron y decidir cuáles retomar.",
+  },
+  "Onde vejo os agendamentos da equipe?": {
+    es: "¿Dónde veo las citas del equipo?",
+  },
+  "Abra a Agenda para consultar os horários marcados e quem vai atender.": {
+    es: "Abre la Agenda para consultar los horarios reservados y quién atenderá cada cita.",
+  },
+  "Como salvo uma mensagem que uso com frequência?": {
+    es: "¿Cómo guardo un mensaje que uso con frecuencia?",
+  },
+  "Cadastre uma resposta rápida para reutilizar o texto ao responder no Inbox.": {
+    es: "Crea una respuesta rápida para reutilizar el texto al responder en la bandeja de entrada.",
+  },
+  "Como configuro uma retomada automática?": {
+    es: "¿Cómo configuro un seguimiento automático?",
+  },
+  "Em Follow-ups, configure quando o agente deve retomar uma conversa que esfriou.": {
+    es: "En Seguimientos, configura cuándo debe el agente retomar una conversación que se enfrió.",
+  },
+  "Como escolho qual agente atende cada tipo de conversa?": {
+    es: "¿Cómo elijo qué agente atiende cada tipo de conversación?",
+  },
+  "Em Roteadores, defina para qual agente vai cada tipo de conversa e quando encaminhar para uma pessoa.": {
+    es: "En Enrutadores, define a qué agente va cada tipo de conversación y cuándo derivarla a una persona.",
+  },
+  "Como faço a IA seguir um roteiro de perguntas?": {
+    es: "¿Cómo hago que la IA siga un guion de preguntas?",
+  },
+  "Em Fluxos de atendimento, monte as perguntas que a IA vai fazer e guardar na ficha do cliente.": {
+    es: "En Flujos de atención, prepara las preguntas que hará la IA y cuyas respuestas guardará en la ficha del cliente.",
+  },
+  "Onde vejo o consumo de IA e defino um limite?": {
+    es: "¿Dónde veo el consumo de IA y fijo un límite?",
+  },
+  "Abra Uso e orçamento para conferir o consumo e ajustar o teto mensal da organização.": {
+    es: "Abre Uso y presupuesto para consultar el consumo y ajustar el límite mensual de la organización.",
+  },
+  "Como recebo leads do meu site ou automatizo uma ação?": {
+    es: "¿Cómo recibo leads de mi sitio o automatizo una acción?",
+  },
+  "Em Webhooks, crie uma fonte de captação para seu formulário ou configure regras para ações, como adicionar uma etiqueta.": {
+    es: "En Webhooks, crea una fuente de captación para tu formulario o configura reglas para acciones como añadir una etiqueta.",
+  },
+  "Como trago pedidos da minha loja para o CRM?": {
+    es: "¿Cómo traigo los pedidos de mi tienda al CRM?",
+  },
+  "Conecte a Nuvemshop para trazer pedidos e clientes da loja para o CRM.": {
+    es: "Conecta Nuvemshop para traer los pedidos y clientes de la tienda al CRM.",
+  },
+  "Onde acompanho o desempenho da equipe?": {
+    es: "¿Dónde consulto el desempeño del equipo?",
+  },
+  "Abra Desempenho para acompanhar os números do funil e do atendimento.": {
+    es: "Abre Desempeño para consultar las métricas del embudo y de atención.",
+  },
   // Fatia F2 da #3567: o alcance do papel (`lib/ajuda/papel.ts`). Cada frase
   // abaixo é uma afirmação sobre o catálogo de navegação, conferida pelo teste
   // `ajuda-diz-o-que-o-papel-pode` — não é texto solto de ajuda.

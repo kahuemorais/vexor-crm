@@ -71,6 +71,21 @@ export const BLOCOS_DE_AJUDA: readonly BlocoDeAjuda[] = [
         href: "/app/connections",
         detalhe: "Por onde as mensagens entram: WhatsApp, Instagram e os demais canais.",
       },
+      {
+        texto: "Como vejo quais conversas ficaram sem resposta?",
+        href: "/app/radar",
+        detalhe: "Abra o Radar para ver as conversas abertas que esfriaram e decidir quais retomar.",
+      },
+      {
+        texto: "Onde vejo os agendamentos da equipe?",
+        href: "/app/agenda",
+        detalhe: "Abra a Agenda para consultar os horários marcados e quem vai atender.",
+      },
+      {
+        texto: "Como salvo uma mensagem que uso com frequência?",
+        href: "/app/templates",
+        detalhe: "Cadastre uma resposta rápida para reutilizar o texto ao responder no Inbox.",
+      },
     ],
   },
   {
@@ -91,6 +106,26 @@ export const BLOCOS_DE_AJUDA: readonly BlocoDeAjuda[] = [
         href: "/app/ai/cases",
         detalhe: "As conversas em que a IA pediu ajuda — é daí que sai a correção.",
       },
+      {
+        texto: "Como configuro uma retomada automática?",
+        href: "/app/ai/followups",
+        detalhe: "Em Follow-ups, configure quando o agente deve retomar uma conversa que esfriou.",
+      },
+      {
+        texto: "Como escolho qual agente atende cada tipo de conversa?",
+        href: "/app/ai/routers",
+        detalhe: "Em Roteadores, defina para qual agente vai cada tipo de conversa e quando encaminhar para uma pessoa.",
+      },
+      {
+        texto: "Como faço a IA seguir um roteiro de perguntas?",
+        href: "/app/ai/atendimento",
+        detalhe: "Em Fluxos de atendimento, monte as perguntas que a IA vai fazer e guardar na ficha do cliente.",
+      },
+      {
+        texto: "Onde vejo o consumo de IA e defino um limite?",
+        href: "/app/ai/usage",
+        detalhe: "Abra Uso e orçamento para conferir o consumo e ajustar o teto mensal da organização.",
+      },
     ],
   },
   {
@@ -105,6 +140,21 @@ export const BLOCOS_DE_AJUDA: readonly BlocoDeAjuda[] = [
         texto: "Renomear as etapas e criar campos",
         href: "/app/settings/tenant/pipelines",
         detalhe: "O vocabulário que a sua operação usa, no lugar do padrão.",
+      },
+      {
+        texto: "Como recebo leads do meu site ou automatizo uma ação?",
+        href: "/app/webhooks",
+        detalhe: "Em Webhooks, crie uma fonte de captação para seu formulário ou configure regras para ações, como adicionar uma etiqueta.",
+      },
+      {
+        texto: "Como trago pedidos da minha loja para o CRM?",
+        href: "/app/integrations/nuvemshop",
+        detalhe: "Conecte a Nuvemshop para trazer pedidos e clientes da loja para o CRM.",
+      },
+      {
+        texto: "Onde acompanho o desempenho da equipe?",
+        href: "/app/metrics",
+        detalhe: "Abra Desempenho para acompanhar os números do funil e do atendimento.",
       },
     ],
   },
