@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 import { useAuth } from "@/hooks/auth/AuthProvider";
 import { useT } from "@/hooks/i18n/useT";
@@ -8,8 +9,13 @@ import { blocosVisiveis } from "@/lib/ajuda/hub";
 import { destinosDaInterface } from "@/lib/navigation/interface";
 import { BlocoDoPapel } from "./_papel";
 
+function normalizarBusca(texto: string) {
+  return texto.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+}
+
 export function AjudaConteudo() {
   const t = useT();
+  const [busca, setBusca] = useState("");
   const { user, activeOrg } = useAuth();
   // O mesmo contexto enriquecido pelo layout e a mesma régua do Sidebar.
   // Arrays vazios são intencionais: undefined desligaria esses filtros.
@@ -23,6 +29,18 @@ export function AjudaConteudo() {
   // A leitura de Atualização aceita plataforma também em suporte; não é o
   // bypass de papel dos atalhos regulares (settings/atualizacao/page.tsx).
   const blocos = blocosVisiveis(user.is_platform_admin, destinos);
+  const termos = normalizarBusca(busca.trim()).split(/\s+/).filter(Boolean);
+  const resultados = termos.length
+    ? blocos.flatMap((bloco) => {
+        const itens = bloco.itens.filter((item) => {
+          const texto = normalizarBusca(
+            [t(bloco.titulo), t(item.texto), t(item.detalhe)].join(" "),
+          );
+          return termos.every((termo) => texto.includes(termo));
+        });
+        return itens.length ? [{ ...bloco, itens }] : [];
+      })
+    : blocos;
 
   return (
     <div className="flex h-full flex-col gap-6 p-6">
@@ -38,8 +56,29 @@ export function AjudaConteudo() {
       {/* O alcance do papel vem ANTES do índice: "posso" antes de "onde". */}
       <BlocoDoPapel papel={activeOrg?.role ?? null} destinos={destinos} />
 
-      <div className="grid gap-6 md:grid-cols-2">
-        {blocos.map((bloco) => (
+      {blocos.length > 0 && (
+        <div className="flex max-w-md flex-col gap-2">
+          <label htmlFor="busca-ajuda" className="text-sm font-medium">
+            {t("Buscar na Ajuda")}
+          </label>
+          <input
+            id="busca-ajuda"
+            type="search"
+            value={busca}
+            onChange={(event) => setBusca(event.target.value)}
+            className="min-h-11 rounded-md border bg-background px-3 text-sm outline-offset-2"
+          />
+        </div>
+      )}
+
+      <div role="status" className="text-sm text-muted-foreground empty:hidden">
+        {termos.length > 0 && blocos.length > 0 && resultados.length === 0
+          ? t("Nenhuma dúvida encontrada.")
+          : null}
+      </div>
+
+      <div className="grid items-start gap-6 md:grid-cols-2">
+        {resultados.map((bloco) => (
           <section key={bloco.titulo} className="flex flex-col gap-2">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
               {t(bloco.titulo)}

@@ -27,6 +27,13 @@ afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 // mede) e o bloco "o que o seu papel pode fazer" (medido em
 // `ajuda-diz-o-que-o-papel-pode`). Este helper lê só o índice, que é o que
 // responde "a Ajuda acompanha o menu".
+const atalhosEssenciais = [
+  "/app/settings/aplicativo",
+  "/app/settings/notifications",
+  "/app/settings/profile",
+  "/app/settings/security",
+];
+
 function urls() {
   return screen
     .queryAllByRole("link")
@@ -51,20 +58,20 @@ describe("conteúdo da Ajuda acompanha o contexto do menu", () => {
     const filtro = vi.spyOn(navegacao, "destinosDaInterface"); // delega ao original
     render(<AjudaConteudo />);
     expect(filtro).toHaveBeenLastCalledWith(settings, false, "manager", modulos, capacidades);
-    expect(urls()).toEqual(["/app/contacts"]);
+    expect(urls()).toEqual(["/app/contacts", ...atalhosEssenciais]);
   });
 
   it("a troca A → B não conserva atalhos da organização anterior", () => {
     authRef.activeOrg!.interface_settings = { preset: "completa", destinos: ["/app/ajuda", "/app/contacts"] };
     const view = render(<AjudaConteudo />);
-    expect(urls()).toEqual(["/app/contacts"]);
+    expect(urls()).toEqual(["/app/contacts", ...atalhosEssenciais]);
     authRef.activeOrg = { orgId: "org-b", name: "Outra organização sintética", role: "agent",
       interface_settings: { preset: "completa", destinos: ["/app/ajuda", "/app/inbox"] } };
     view.rerender(<AjudaConteudo />);
-    expect(urls()).toEqual(["/app/inbox"]);
+    expect(urls()).toEqual(["/app/inbox", ...atalhosEssenciais]);
   });
 
-  it("sem atalhos visíveis mantém a página e omite as seções vazias", () => {
+  it("mantém apenas os atalhos essenciais quando a seleção contém só a Ajuda", () => {
     authRef.activeOrg!.interface_settings = { preset: "completa", destinos: ["/app/ajuda"] };
     render(<AjudaConteudo />);
     expect(screen.getByRole("heading", { level: 1, name: "Ajuda" })).toBeInTheDocument();
@@ -73,8 +80,8 @@ describe("conteúdo da Ajuda acompanha o contexto do menu", () => {
     const secoesDoIndice = screen
       .queryAllByRole("heading", { level: 2 })
       .filter((h) => h.id !== "ajuda-do-papel-titulo");
-    expect(secoesDoIndice).toEqual([]);
-    expect(urls()).toEqual([]);
+    expect(secoesDoIndice.map((h) => h.textContent)).toEqual(["Conta, empresa e integrações"]);
+    expect(urls()).toEqual(atalhosEssenciais);
   });
 
   it("não usa o bypass de plataforma em suporte; preserva a leitura do instalador", () => {
@@ -88,10 +95,20 @@ describe("conteúdo da Ajuda acompanha o contexto do menu", () => {
     const filtro = vi.spyOn(navegacao, "destinosDaInterface");
     render(<AjudaConteudo />);
     expect(filtro).toHaveBeenLastCalledWith(undefined, false, "viewer", [], []);
-    expect(urls()).toEqual([
-      "/app/agenda", "/app/contacts", "/app/inbox", "/app/kanban", "/app/metrics",
-      "/app/radar", "/app/settings/atualizacao", "/app/team", "/app/templates",
-    ]);
+    const destinosDoViewer = navegacao.destinosDaInterface(undefined, false, "viewer", [], [])
+      .map((destino) => destino.href)
+      .filter((href) => href !== "/app/ajuda");
+    expect(urls()).toEqual([...destinosDoViewer, "/app/settings/atualizacao"].sort());
+  });
+
+  it("busca por vários termos sem acento e respeita as permissões", () => {
+    render(<AjudaConteudo />);
+    const busca = screen.getByRole("searchbox", { name: "Buscar na Ajuda" });
+    fireEvent.change(busca, { target: { value: "execucao falhou" } });
+    expect(urls()).toEqual(["/app/ai/runs"]);
+    fireEvent.change(busca, { target: { value: "nuvemshop" } });
+    expect(urls()).toEqual([]);
+    expect(screen.getByRole("status")).toHaveTextContent("Nenhuma dúvida encontrada.");
   });
 
   it("o idioma do provider muda o conteúdo antes de mudar user.idioma", () => {

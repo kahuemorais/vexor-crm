@@ -1,9 +1,9 @@
 ---
 impacto: capacidade_nova
 secao: adicionado
-titulo: A Ajuda interna responde mais dúvidas sobre o uso do CRM
+titulo: A Ajuda interna cobre as funções do CRM e ganhou busca
 ---
 
-A tela **Ajuda** reúne perguntas e atalhos sobre Radar, Agenda, respostas rápidas, follow-ups,
-roteamento, fluxos de atendimento, consumo de IA, captação e automações, Nuvemshop e Desempenho.
-Cada atalho aparece conforme o acesso à tela correspondente.
+A tela **Ajuda** agora tem perguntas e orientações para todos os destinos do catálogo do app,
+incluindo campanhas, propostas, telefonia, importações, diagnóstico de IA, financeiro e LGPD.
+Busque por termos da pergunta ou resposta. Cada resultado respeita o acesso à tela correspondente.
