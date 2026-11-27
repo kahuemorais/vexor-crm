@@ -94,10 +94,13 @@ describe("a ajuda dentro do produto", () => {
     expect(paraQuemInstala).toEqual(expect.arrayContaining(paraQuemUsa));
   });
 
-  it("admin de tenant com interface completa mantém as jornadas do produto", () => {
-    // Guarda contra o hub esvaziar: um `soParaQuemInstala` mal copiado em todos
-    // os blocos deixaria a tela vazia para atendente, gerente e admin.
-    const destinos = destinosDaInterface(undefined, false, "admin", [], []);
-    expect(blocosVisiveis(false, destinos).flatMap((b) => b.itens).length).toBe(9);
+  it("toda função do catálogo tem uma pergunta ou orientação na Ajuda", () => {
+    const destinos = BLOCOS_DE_AJUDA.filter((bloco) => !bloco.soParaQuemInstala)
+      .flatMap((bloco) => bloco.itens.map((item) => item.href))
+      .sort();
+    const catalogo = NAV_CATALOG.map((item) => item.href)
+      .filter((href) => href !== "/app/ajuda")
+      .sort();
+    expect(destinos).toEqual(catalogo);
   });
 });
